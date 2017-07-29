@@ -14,21 +14,27 @@ import com.fans.challenge.repository.MonitoringRepository;
 public class MonitoringServiceImpl implements MonitoringService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
 	@Autowired
 	private MonitoringRepository monitoringRepository;
 	private ScheduledFuture<?> scheduledFuture;
 
 	@Override
-	public void start(String hostname, Long interval) {
+	public boolean start(String hostname, Long interval) {
+		boolean hasStarted = false;
+
 		if (scheduledFuture == null) {
 			logger.info("1st time");
 			scheduledFuture = monitoringRepository.getData(hostname, interval);
+			hasStarted = true;
 		} else {
 			if (scheduledFuture.isDone()) {
 				logger.info("isDone.. recreate");
 				scheduledFuture = monitoringRepository.getData(hostname, interval);
+				hasStarted = true;
 			}
 		}
+		return hasStarted;
 	}
 
 	@Override

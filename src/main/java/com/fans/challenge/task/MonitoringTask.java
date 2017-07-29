@@ -32,10 +32,10 @@ public class MonitoringTask implements Runnable {
 
 	@Override
 	public void run() {
-		ServerInformation serverInfo = restTemplate.getForObject(getHostname(), ServerInformation.class);
-		String status = serverInfo.getStatus();
-		logger.info("status: " + status);
-		monitoringReport.addReport(new PingReport(serverInfo.getStatus(), new Date()));
+//		ServerInformation serverInfo = restTemplate.getForObject(getHostname(), ServerInformation.class);
+//		String status = serverInfo.getStatus();
+//		logger.info("status: " + status);
+//		monitoringReport.addReport(new PingReport(serverInfo.getStatus(), new Date(), 1.0));
 	}
 
 }

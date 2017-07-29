@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>FANS - Server Status</title>
+<title>FANS - Server Monitoring</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
@@ -12,25 +12,36 @@ body {
 	padding-top: 50px;
 }
 
+pre {
+	margin: 10px 0;
+}
+
 .mtop-1 {
 	margin-top: 50px;
 }
 </style>
 </head>
 <body>
-
 	<div class="container">
 		<div class="content">
-
-
 			<ul class="list-group">
 				<li class="list-group-item">
 					<a th:href="@{/start}" class="label label-info">/start</a>
 					to start the monitoring. This endpoint accepts two values:
 					<strong>interval</strong>
 					and
-					<strong>hostname</strong>
-					.
+					<strong>hostname.</strong>
+					<br />
+					<pre> { "interval": 2000, "hostname": "https://api.test.paysafe.com/accountmanagement/monitor" } </pre>
+					<p>
+						<small>
+							To change
+							<b>hostname</b>
+							and/or
+							<b>interval</b>
+							, you have to stop the monitoring first.
+						</small>
+					</p>
 				</li>
 				<li class="list-group-item">
 					<a th:href="@{/stop}" class="label label-info">/stop</a>
@@ -46,7 +57,6 @@ body {
 				</li>
 			</ul>
 
-
 			<div class="panel panel-default mtop-1">
 				<!-- Default panel contents -->
 				<div class="panel-heading">
@@ -58,15 +68,24 @@ body {
 							<tr>
 								<th>Status</th>
 								<th>Time Checked</th>
+								<th>Host</th>
+								<th>Interval</th>
+								<th>Execution Time</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="row : ${report.reportList}">
 								<td th:text="${row.status}"></td>
-								<td th:text="${#dates.format(row.date, 'dd-MM-yyyy HH:mm')}"></td>
+								<td th:text="${#dates.format(row.date, 'dd-MM-yyyy HH:mm:ss')}"></td>
+								<td th:text="${row.hostname}"></td>
+								<td th:text="${row.interval} + ' ms'"></td>
+								<td th:text="${row.executionTime} + ' ms'"></td>
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="panel-footer">
+					<small>*Refresh the page to see updates.</small>
 				</div>
 			</div>
 		</div>
