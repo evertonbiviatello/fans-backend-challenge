@@ -10,4 +10,6 @@ public interface MonitoringService {
 
 	public MonitoringReport getReport();
 
+	public void clearReport();
+
 }

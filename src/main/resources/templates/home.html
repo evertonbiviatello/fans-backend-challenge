@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>FANS - Server Status</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<script type="text/javascript" src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+body {
+	padding-top: 50px;
+}
+
+.mtop-1 {
+	margin-top: 50px;
+}
+</style>
+</head>
+<body>
+
+	<div class="container">
+		<div class="content">
+
+
+			<ul class="list-group">
+				<li class="list-group-item">
+					<a th:href="@{/start}" class="label label-info">/start</a>
+					to start the monitoring. This endpoint accepts two values:
+					<strong>interval</strong>
+					and
+					<strong>hostname</strong>
+					.
+				</li>
+				<li class="list-group-item">
+					<a th:href="@{/stop}" class="label label-info">/stop</a>
+					to stop the monitoring.
+				</li>
+				<li class="list-group-item">
+					<a th:href="@{/status}" class="label label-info">/status</a>
+					to see a log of the monitoring.
+				</li>
+				<li class="list-group-item">
+					<a th:href="@{/clear}" class="label label-info">/clear</a>
+					to clear the log.
+				</li>
+			</ul>
+
+
+			<div class="panel panel-default mtop-1">
+				<!-- Default panel contents -->
+				<div class="panel-heading">
+					<h4>Server Status</h4>
+				</div>
+				<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>Status</th>
+								<th>Time Checked</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="row : ${report.reportList}">
+								<td th:text="${row.status}"></td>
+								<td th:text="${#dates.format(row.date, 'dd-MM-yyyy HH:mm')}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
