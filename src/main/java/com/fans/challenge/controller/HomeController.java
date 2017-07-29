@@ -17,7 +17,7 @@ public class HomeController {
 	@GetMapping("/")
 	public ModelAndView getReport(ModelMap model) {
 		model.addAttribute("report", monitoringService.getReport());
-		return new ModelAndView("/home", model);
+		return new ModelAndView("home", model);
 	}
 
 }
