@@ -2,10 +2,9 @@
 FANS Backend Challenge with Spring Boot Maven project.
 
 ## Overview
-The purpose of this application is to monitor a server and log its state.
+The purpose of this application is to monitor a server and report its state.
 
-It was deployed on Heroku and it is built automatically on each commit.
-It also contains a simple UI with a table to display reports.
+It was deployed on Heroku and is being built automatically on each commit. It also contains a simple UI to display reports.
 
 The application is available on https://murmuring-castle-26388.herokuapp.com
 
@@ -15,6 +14,10 @@ The application is available on https://murmuring-castle-26388.herokuapp.com
    * Stop: https://murmuring-castle-26388.herokuapp.com/stop
    * Status: https://murmuring-castle-26388.herokuapp.com/status
    * Clear: https://murmuring-castle-26388.herokuapp.com/clear
+
+By default, the following values will be used if none informed:
+- **Interval:** 3000
+- **Hostname:** https://api.test.paysafe.com/accountmanagement/monitor
 
 ## How to build & run
 To build the application, clone the project from github, navigate to the project folder and type:
