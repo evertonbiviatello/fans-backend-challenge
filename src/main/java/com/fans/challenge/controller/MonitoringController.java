@@ -77,9 +77,9 @@ public class MonitoringController {
 	}
 
 	@GetMapping(value = "/clear")
-	public ResponseEntity<String> clearMonitoring() {
+	public ResponseEntity<Response> clearMonitoring() {
 		monitoringService.clearReport();
-		return new ResponseEntity<String>("Monitoring logs cleared.", HttpStatus.OK);
+		return new ResponseEntity<Response>(new Response(ResponseCode.CLEARED), HttpStatus.OK);
 	}
 
 	/**

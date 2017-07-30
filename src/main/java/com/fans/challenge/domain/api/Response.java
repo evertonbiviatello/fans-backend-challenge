@@ -9,7 +9,7 @@ public class Response {
 	}
 
 	public enum ResponseCode {
-		STARTED, RUNNING, STOPPED
+		STARTED, RUNNING, STOPPED, CLEARED
 	}
 
 }
