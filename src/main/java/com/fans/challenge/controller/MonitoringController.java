@@ -83,7 +83,8 @@ public class MonitoringController {
 	}
 
 	/**
-	 * Validates monitoring start post request.
+	 * Handles exception thrown when argument annotated with @Valid failed
+	 * validation.
 	 * 
 	 * @param exception
 	 * @return
