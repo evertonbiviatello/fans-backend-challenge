@@ -7,11 +7,11 @@ import org.hibernate.validator.constraints.NotBlank;
 
 public class ServerSettings {
 
-	@Min(value = 500, message = "Interval must be more than 500ms")
-	@NotNull(message = "Interval must not be null!")
+	@Min(value = 500, message = "Interval must be more than 500ms.")
+	@NotNull(message = "Interval must not be null.")
 	private Long interval;
 
-	@NotBlank(message = "Host name must not be blank!")
+	@NotBlank(message = "Host name must not be blank.")
 	private String hostname;
 
 	public ServerSettings() {

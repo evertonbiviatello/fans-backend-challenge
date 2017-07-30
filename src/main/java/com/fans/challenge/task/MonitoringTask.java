@@ -43,7 +43,6 @@ public class MonitoringTask implements Runnable {
 	@Override
 	public void run() {
 		String status;
-		double executionTime = 0.0;
 		long start = System.nanoTime();
 
 		try {
@@ -59,12 +58,12 @@ public class MonitoringTask implements Runnable {
 
 		long end = System.nanoTime();
 
-		// Calculate the request time
+		// Calculate the request time in milliseconds
 		long elapsedTime = end - start;
-		executionTime = (double) elapsedTime / 1000000.0;
+		double executionTime = (double) elapsedTime / 1000000.0;
 
 		// Clear the log once we reach a high amount of data
-		if (monitoringRepository.find().getReportList().size() > 1000) {
+		if (monitoringRepository.find().getReportList().size() > 500) {
 			monitoringRepository.clearData();
 		}
 

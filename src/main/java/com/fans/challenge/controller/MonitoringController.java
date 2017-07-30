@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fans.challenge.controller.validator.ValidationError;
 import com.fans.challenge.controller.validator.ValidationErrorBuilder;
 import com.fans.challenge.domain.MonitoringReport;
+import com.fans.challenge.domain.api.Response;
+import com.fans.challenge.domain.api.Response.ResponseCode;
 import com.fans.challenge.domain.api.ServerSettings;
 import com.fans.challenge.service.MonitoringService;
 
@@ -33,18 +35,18 @@ public class MonitoringController {
 
 	// Web purposes only
 	@GetMapping(value = "/start")
-	public ResponseEntity<String> start() {
-		String result = startMonitoring(null, null);
-		return new ResponseEntity<String>(result, HttpStatus.OK);
+	public ResponseEntity<Response> start() {
+		Response response = startMonitoring(null, null);
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/start")
-	public ResponseEntity<String> start(@Valid @RequestBody ServerSettings settings) {
-		String result = startMonitoring(settings.getHostname(), settings.getInterval());
-		return new ResponseEntity<String>(result, HttpStatus.OK);
+	public ResponseEntity<Response> start(@Valid @RequestBody ServerSettings settings) {
+		Response response = startMonitoring(settings.getHostname(), settings.getInterval());
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 
-	private String startMonitoring(String hostname, Long interval) {
+	private Response startMonitoring(String hostname, Long interval) {
 		if (hostname == null) {
 			hostname = DEFAULT_HOSTNAME;
 		}
@@ -54,19 +56,19 @@ public class MonitoringController {
 
 		boolean hasStarted = monitoringService.start(hostname, interval);
 
-		String result;
+		Response response;
 		if (hasStarted) {
-			result = "Monitoring started.";
+			response = new Response(ResponseCode.STARTED);
 		} else {
-			result = "Monitoring already running.";
+			response = new Response(ResponseCode.RUNNING);
 		}
-		return result;
+		return response;
 	}
 
 	@GetMapping("/stop")
-	public ResponseEntity<String> stop() {
+	public ResponseEntity<Response> stop() {
 		monitoringService.stop();
-		return new ResponseEntity<String>("Monitoring stopped.", HttpStatus.OK);
+		return new ResponseEntity<Response>(new Response(ResponseCode.STOPPED), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/status")
