@@ -5,17 +5,17 @@ import java.util.List;
 
 public class MonitoringReport {
 
-	private List<PingReport> reportList;
+	private List<Report> reportList;
 
 	public MonitoringReport() {
 		this.reportList = new ArrayList<>();
 	}
 
-	public void addReport(PingReport pingReport) {
-		reportList.add(pingReport);
+	public void addReport(Report report) {
+		reportList.add(report);
 	}
 
-	public List<PingReport> getReportList() {
+	public List<Report> getReportList() {
 		return reportList;
 	}
 

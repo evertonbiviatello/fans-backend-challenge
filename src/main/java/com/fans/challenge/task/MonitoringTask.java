@@ -4,38 +4,72 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.fans.challenge.domain.MonitoringReport;
-import com.fans.challenge.domain.PingReport;
+import com.fans.challenge.domain.Report;
 import com.fans.challenge.domain.api.ServerInformation;
+import com.fans.challenge.repository.MonitoringRepository;
 
+/**
+ * 
+ * <code>Runnable</code> class that requests from a given hostname over a
+ * specific interval.
+ * 
+ * @author Everton Biviatello
+ */
 public class MonitoringTask implements Runnable {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	private RestTemplate restTemplate;
+	private MonitoringRepository monitoringRepository;
 	private String hostname;
-	private MonitoringReport monitoringReport;
+	private Long interval;
 
-	public MonitoringTask(RestTemplate restTemplate, MonitoringReport monitoringReport) {
+	public MonitoringTask(RestTemplate restTemplate, MonitoringRepository monitoringRepository) {
 		this.restTemplate = restTemplate;
-		this.monitoringReport = monitoringReport;
+		this.monitoringRepository = monitoringRepository;
 	}
 
 	public void updateHostname(String hostname) {
 		this.hostname = hostname;
 	}
 
-	private String getHostname() {
-		return hostname;
+	public void updateInterval(Long interval) {
+		this.interval = interval;
 	}
 
 	@Override
 	public void run() {
-//		ServerInformation serverInfo = restTemplate.getForObject(getHostname(), ServerInformation.class);
-//		String status = serverInfo.getStatus();
-//		logger.info("status: " + status);
-//		monitoringReport.addReport(new PingReport(serverInfo.getStatus(), new Date(), 1.0));
+		String status;
+		double executionTime = 0.0;
+		long start = System.nanoTime();
+
+		try {
+			ServerInformation serverInfo = restTemplate.getForObject(hostname, ServerInformation.class);
+			status = serverInfo.getStatus();
+		} catch (ResourceAccessException e) {
+			status = "DOWN";
+			logger.info("exception: {}, status: {} ", e.getMessage(), status);
+		} catch (RestClientException e) {
+			status = "UNAVAILABLE";
+			logger.info("exception: {}, status: {} ", e.getMessage(), status);
+		}
+
+		long end = System.nanoTime();
+
+		// Calculate the request time
+		long elapsedTime = end - start;
+		executionTime = (double) elapsedTime / 1000000.0;
+
+		// Clear the log once we reach a high amount of data
+		if (monitoringRepository.find().getReportList().size() > 1000) {
+			monitoringRepository.clearData();
+		}
+
+		logger.info("status: {} in {} ms", status, executionTime);
+		monitoringRepository.save(new Report(status, new Date(), executionTime, hostname, interval));
 	}
 
 }

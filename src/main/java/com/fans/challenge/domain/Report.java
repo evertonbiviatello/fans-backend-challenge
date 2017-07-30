@@ -2,7 +2,7 @@ package com.fans.challenge.domain;
 
 import java.util.Date;
 
-public class PingReport {
+public class Report {
 
 	private String status;
 	private Date date;
@@ -10,7 +10,7 @@ public class PingReport {
 	private String hostname;
 	private Long interval;
 
-	public PingReport(String status, Date date, Double executionTime, String hostname, Long interval) {
+	public Report(String status, Date date, Double executionTime, String hostname, Long interval) {
 		this.status = status;
 		this.date = date;
 		this.executionTime = executionTime;

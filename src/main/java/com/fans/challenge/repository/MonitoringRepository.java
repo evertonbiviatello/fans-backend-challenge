@@ -1,12 +1,13 @@
 package com.fans.challenge.repository;
 
-import java.util.concurrent.ScheduledFuture;
-
 import com.fans.challenge.domain.MonitoringReport;
+import com.fans.challenge.domain.Report;
 
 public interface MonitoringRepository {
 
-	public ScheduledFuture<?> getData(String hostname, Long interval);
+	public void save(Report report);
 
-	public MonitoringReport findReport();
+	public MonitoringReport find();
+
+	public void clearData();
 }

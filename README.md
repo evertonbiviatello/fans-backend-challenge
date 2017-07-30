@@ -5,7 +5,7 @@ FANS Backend Challenge with Spring Boot Maven project.
 The purpose of this application is to monitor a server and log its state.
 
 It was deployed on Heroku and it is built automatically on each commit.
-It also contains a simple UI to display a table with the reports..
+It also contains a simple UI with a table to display reports.
 
 The application is available on https://murmuring-castle-26388.herokuapp.com
 

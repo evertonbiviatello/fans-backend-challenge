@@ -32,7 +32,7 @@ pre {
 					and
 					<strong>hostname.</strong>
 					<br />
-					<pre> { "interval": 2000, "hostname": "https://api.test.paysafe.com/accountmanagement/monitor" } </pre>
+					<pre>{ "interval": <span th:text="${defaultInterval}"></span>, "hostname": "<span th:text="${defaultHostname}"></span>" }</pre>
 					<p>
 						<small>
 							To change
@@ -68,7 +68,7 @@ pre {
 							<tr>
 								<th>Status</th>
 								<th>Time Checked</th>
-								<th>Host</th>
+								<th>Server</th>
 								<th>Interval</th>
 								<th>Execution Time</th>
 							</tr>
