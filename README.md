@@ -15,8 +15,8 @@ The application is available on https://murmuring-castle-26388.herokuapp.com
    * Status: https://murmuring-castle-26388.herokuapp.com/status
    * Clear: https://murmuring-castle-26388.herokuapp.com/clear
 
-By default, the following values will be used if none informed:
-- **Interval:** 3000
+By default, the following values will be used if none was informed:
+- **Interval:** 3000 ms
 - **Hostname:** https://api.test.paysafe.com/accountmanagement/monitor
 
 ## How to build & run
