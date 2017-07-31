@@ -28,4 +28,4 @@ mvn clean install
 To run, navigate to ./target folder and type:
 ```
 java -jar fans-backend-challenge-0.0.1-SNAPSHOT.jar
-```
+``` 
